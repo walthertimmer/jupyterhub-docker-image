@@ -7,6 +7,7 @@
 FROM quay.io/jupyter/all-spark-notebook:latest
 ARG JUPYTERHUB_VERSION=5.2.1
 
+# Make sure jupyterhub version matches with server
 RUN pip3 install --no-cache \
     jupyterhub==$JUPYTERHUB_VERSION
 
@@ -14,8 +15,13 @@ RUN pip3 install --no-cache \
 RUN conda install -c conda-forge nodejs
 
 # Install the jupyterlab-git extension
-RUN pip install jupyterlab-git && \
-    jupyter lab build --dev-build=False --minimize=False
+RUN pip install jupyterlab-git
+
+# Install the jupyter_scheduler extension
+RUN pip install jupyter_scheduler
+
+# make sure extensions are installed correctly
+RUN jupyter lab build --dev-build=False --minimize=False
 
 # Expose the default JupyterLab port
 EXPOSE 8888
