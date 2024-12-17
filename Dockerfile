@@ -20,6 +20,12 @@ RUN pip install jupyterlab-git
 # Install the jupyter_scheduler extension
 RUN pip install jupyter_scheduler
 
+# https://github.com/jupyterlab-contrib/jupyterlab_code_formatter?tab=readme-ov-file
+RUN pip install jupyterlab-code-formatter
+# NOTE: Install black and isort,
+# JL code formatter is configured to invoke isort and black by default
+RUN pip install black isort
+
 # make sure extensions are installed correctly
 RUN jupyter lab build --dev-build=False --minimize=False
 
